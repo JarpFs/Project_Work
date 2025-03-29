@@ -1,4 +1,4 @@
-name: CI Workflow
+name: GitHub Actions #Nombre en las rules
 
 on:
   push:
@@ -32,4 +32,5 @@ jobs:
     # Paso 4: Ejecutar el script de Python
     - name: Run Python script
       run: |
-        python test.py  # Reemplaza 'my_script.py' con el nombre de tu script
+        python tests/test.py  # Reemplaza 'my_script.py' con el nombre de tu script
+      continue-on-error: false
