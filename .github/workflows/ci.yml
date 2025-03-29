@@ -1,12 +1,12 @@
 name: GitHub Actions #Nombre en las rules
 
-on:
-  push:
-    branches:
-      - main  # Dispara el workflow cuando se hace un push a la rama 'main'
-  pull_request:
-    branches:
-      - main  # Dispara el workflow cuando se crea una PR hacia la rama 'main'
+# on:
+#   push:
+#     branches:
+#       - main  # Dispara el workflow cuando se hace un push a la rama 'main'
+#   pull_request:
+#     branches:
+#       - main  # Dispara el workflow cuando se crea una PR hacia la rama 'main'
 
 jobs:
   build:
