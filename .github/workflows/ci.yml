@@ -29,7 +29,15 @@ jobs:
         python -m pip install --upgrade pip  # Actualiza pip
         pip install -r requirements.txt  # Instala las dependencias desde el archivo requirements.txt
 
+    # Paso 4: Verificar si hay algún error o conflicto en el pull
+    - name: Check if pull was successful
+      run: |
+        git fetch origin develop
+        git merge origin/develop --no-commit --no-ff || exit 1  # Esto verifica si hay conflictos de merge
+      continue-on-error: false 
+
     # Paso 4: Ejecutar el script de Python
     - name: Run Python script
       run: |
         python test.py  # Reemplaza 'my_script.py' con el nombre de tu script
+      continue-on-error: false
