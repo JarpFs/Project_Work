@@ -1,20 +1,22 @@
 #!/bin/bash
 
-# Verificar si Python está instalado
-if ! command -v python &> /dev/null
-then
-    echo "Python no está instalado. Por favor, instálalo."
-    exit 1
-fi
+# Ruta absoluta al directorio del proyecto
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Comprobar si se pasó un nombre de script
+# Ruta al directorio src
+SRC_PATH="$PROJECT_ROOT/src"
+
+# Agrega src al PYTHONPATH
+export PYTHONPATH="$SRC_PATH:$PYTHONPATH"
+
+# Verifica si se pasó un script
 if [ -z "$1" ]; then
     echo "Por favor, pasa el nombre del script de Python que deseas ejecutar."
-    echo "Uso: ./run.sh script.py"
+    echo "Uso: ./run.sh src/scripts/algo.py"
     exit 1
 fi
 
-# Verificar si el archivo del script existe
+# Verifica si el script existe
 if [ -f "$1" ]; then
     echo "Ejecutando $1..."
     python "$1"
