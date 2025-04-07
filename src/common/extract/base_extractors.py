@@ -1,5 +1,7 @@
 import requests
 from abc import ABC, abstractmethod
+from typing import Union
+
 
 from common.logger.logger import get_logger
 
@@ -16,15 +18,17 @@ class ApiExtraction(Extractor):
     def __init__(self, url):
         self.url = url
 
-    def extract(self) -> int :
+    def extract(self) -> tuple[int, Union[dict, list, None]]:
         try:
             response = requests.get(self.url)
+            response.raise_for_status() 
 
             logger.info(f"Succesfully conection from {self.url}")
-        except Exception as e:
+            return response.status_code, response.json()
+
+        except requests.RequestException as e:
 
             logger.error(f"Fail conection from {self.url} with this error {e}")
-
-        return response.status_code,response
+            return None, None
 
 
