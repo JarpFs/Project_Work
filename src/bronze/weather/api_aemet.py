@@ -8,7 +8,7 @@ logger = get_logger(__name__)
 def main() -> None:
 
     #URL de la API pública (JSONPlaceholder)
-    url = 'https://jsonplaceholder.typicode.com/posts'
+    url = 'https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/estaciones/C419X%20-%20Adeje'
 
     api_call = ApiExtraction(url)
 
