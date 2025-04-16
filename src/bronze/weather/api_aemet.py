@@ -3,6 +3,8 @@ from common.logger.logger import get_logger
 from common.extract.base_extractors import ApiExtraction
 import os
 from dotenv import load_dotenv
+import pandas as pd
+
 
 load_dotenv()
 
@@ -14,7 +16,7 @@ def main() -> None:
     api_key = os.getenv('KEY_AEMET')
 
     #URL de la API pública (JSONPlaceholder)
-    url = 'https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/estaciones/C419X%2520-%2520Adeje'
+    url = 'https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/estaciones/C419X'
 
     headers = {
         "accept": "application/json",
@@ -37,6 +39,28 @@ def main() -> None:
         logger.info(f"Datos recibidos (primeras 5 claves): {list(data.items())[:5]}") # Imprimir los primeros 5 elementos
     else:
         logger.error(f"Error al hacer la solicitud. Código de estado: {response}")
+        data = None
+        raise ValueError
+
+
+    url_data = data['datos']
+
+    api_call_data = ApiExtraction(
+        url_data
+    )
+
+    headers_data = {
+        "accept": "application/json"    
+    }
+
+    status, response = api_call_data.extract(
+        method='get',
+        headers= headers_data
+    )
+
+    print(response)
+
+
 
 if __name__ == "__main__":
     main()
